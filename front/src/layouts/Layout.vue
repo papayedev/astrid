@@ -1,17 +1,16 @@
 <template>
-  <Navbar :role="role"/>
+  <Navbar :role="role" />
   <slot></slot>
 </template>
 
 <script setup>
-import Navbar from "@/components/Navbar.vue";
+import Navbar from '@/components/Navbar.vue'
 defineProps({
   role: {
-  type: String,
-  default: '',
+    type: String,
+    default: '',
   },
 })
-
 </script>
 
 <style scoped>

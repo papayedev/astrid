@@ -1,8 +1,8 @@
 <script setup>
+defineProps(['width', 'height'])
 </script>
 <template>
   <div class="logo">
-    <img src="/Astrid-logo-transparent.png" alt="logo" width="50%" height="100%">
+    <img src="/Astrid-logo-transparent.png" alt="logo" :width="width" :height="height" />
   </div>
 </template>
-

@@ -6,15 +6,14 @@ import com.astridback.api.application.usecases.users.GetMyInformationCommand;
 import com.astridback.api.domain.exceptions.UnauthorizedException;
 import com.astridback.api.domain.viewmodel.LoggedInUserViewModel;
 import com.astridback.api.domain.viewmodel.UserDetailsViewModel;
-import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-@Transactional
 public class UserController {
     private final AuthContext authContext;
     private final Pipeline pipeline;

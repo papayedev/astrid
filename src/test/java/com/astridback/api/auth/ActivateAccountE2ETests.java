@@ -1,6 +1,7 @@
 package com.astridback.api.auth;
 
 import com.astridback.api.IntegrationTests;
+import com.astridback.api.domain.valueobject.Role;
 import com.astridback.api.domain.viewmodel.IdResponse;
 import com.astridback.api.presentation.dto.ActiveAccountDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ public class ActivateAccountE2ETests extends IntegrationTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        var user = createFakeUser("1");
+        var user = createFakeUser("1", Role.VISITOR);
         code = user.getVerificationCode();
     }
 

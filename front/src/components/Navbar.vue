@@ -2,18 +2,19 @@
   <div class="menu">
     <nav>
       <ul>
-        <li><strong>{{ role }} - Panel</strong></li>
+        <Logo width="15%" height="15%" />
       </ul>
-      <ul v-if="role === 'VISITOR' || role === 'ADMIN'">
-        <li><button @click="logoutAction">Déconnexion</button></li>
+      <ul>
+        <li><button class="red" @click="logoutAction">Déconnexion</button></li>
       </ul>
     </nav>
   </div>
 </template>
 
 <script setup>
-import {useUserStore} from "@/stores/userStore.js";
-import router from "@/router/index.js";
+import { useUserStore } from '@/stores/userStore.js'
+import router from '@/router/index.js'
+import Logo from '@/components/Logo.vue'
 
 defineProps(['role'])
 
@@ -24,3 +25,10 @@ const logoutAction = () => {
   router.push('/login')
 }
 </script>
+
+<style>
+.red {
+  background-color: red;
+  border-color: red;
+}
+</style>

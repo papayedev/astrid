@@ -1,8 +1,9 @@
-package com.astridback.api.devices;
+package com.astridback.api.devices.model;
 
 import com.astridback.api.UnitTests;
 import com.astridback.api.domain.model.Device;
 import com.astridback.api.domain.valueobject.Pin;
+import com.astridback.api.domain.valueobject.Role;
 import com.astridback.api.domain.valueobject.SerialNumber;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class DevicesTests extends UnitTests {
                     "1",
                     new SerialNumber("1234567890"),
                     new Pin("1234567890"),
-                    createFakeUser("1"),
+                    createFakeUser("1", Role.VISITOR),
                     "Lulu"
             );
 
@@ -33,15 +34,15 @@ public class DevicesTests extends UnitTests {
     @Nested
     class BadPath {
         @Test
-        public void shouldThrowWhenNameIsNull() {
+        public void shouldThrowWhenNameIsEmpty() {
             var exception = assertThrows(IllegalArgumentException.class, () -> new Device(
                     "1",
                     new SerialNumber("1234567890"),
                     new Pin("1234567890"),
-                    createFakeUser("1"),
-                    null
+                    createFakeUser("1", Role.VISITOR),
+                    ""
             ));
-            assertEquals("Name is null", exception.getMessage());
+            assertEquals("Name is empty", exception.getMessage());
         }
 
         @Test
@@ -50,7 +51,7 @@ public class DevicesTests extends UnitTests {
                     "1",
                     new SerialNumber("1234567890"),
                     new Pin("1234567890"),
-                    createFakeUser("1"),
+                    createFakeUser("1", Role.VISITOR),
                     "LuluLuluLuluLuluLuluLuluLulu"
             ));
             assertEquals("Name is too long", exception.getMessage());

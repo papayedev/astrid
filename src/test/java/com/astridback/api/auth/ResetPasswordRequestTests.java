@@ -5,6 +5,7 @@ import com.astridback.api.application.usecases.auth.ResetPasswordRequestCommand;
 import com.astridback.api.application.usecases.auth.ResetPasswordRequestCommandHandler;
 import com.astridback.api.domain.exceptions.ForbiddenException;
 import com.astridback.api.domain.exceptions.NotFoundException;
+import com.astridback.api.domain.valueobject.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class ResetPasswordRequestTests extends UnitTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        createFakeUser("1");
+        createFakeUser("1", Role.VISITOR);
     }
 
     private ResetPasswordRequestCommandHandler createHandler() {

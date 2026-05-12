@@ -5,6 +5,7 @@ import com.astridback.api.application.usecases.auth.UpdatePasswordCommand;
 import com.astridback.api.application.usecases.auth.UpdatePasswordCommandHandler;
 import com.astridback.api.domain.exceptions.NotFoundException;
 import com.astridback.api.domain.exceptions.UnauthorizedException;
+import com.astridback.api.domain.valueobject.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class UpdatePasswordCommandTests extends UnitTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        var user = createFakeUser("1");
+        var user = createFakeUser("1", Role.VISITOR);
         verificationCode = user.getVerificationCode();
     }
 

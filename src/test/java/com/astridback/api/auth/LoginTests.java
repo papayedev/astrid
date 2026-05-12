@@ -6,6 +6,7 @@ import com.astridback.api.application.usecases.auth.LoginCommandHandler;
 import com.astridback.api.domain.exceptions.ForbiddenException;
 import com.astridback.api.domain.exceptions.NotFoundException;
 import com.astridback.api.domain.exceptions.UnauthorizedException;
+import com.astridback.api.domain.valueobject.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class LoginTests extends UnitTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        createFakeUser("1");
+        createFakeUser("1", Role.VISITOR);
     }
 
     private LoginCommandHandler createHandler() {

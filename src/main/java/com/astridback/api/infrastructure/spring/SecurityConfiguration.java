@@ -2,6 +2,7 @@ package com.astridback.api.infrastructure.spring;
 
 import com.astridback.api.application.services.JwtService;
 import com.astridback.api.infrastructure.filter.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,22 +22,25 @@ import java.util.List;
 @Configuration
 public class SecurityConfiguration {
 
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, JwtService jwtService) throws Exception {
-        http
-                .cors(it -> it.configurationSource(corsConfigurationSource()))
-                .addFilterBefore(new JwtAuthenticationFilter(jwtService),
-                        UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(it -> it.requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
-                        .requestMatchers("/users").hasAnyRole("VISITOR", "ADMIN", "DIRECTOR", "PROFESSOR")
-                        .anyRequest().authenticated())
-                .formLogin(it -> it.disable())
-                .httpBasic(it -> it.disable())
-                .csrf(it -> it.disable())
-                .sessionManagement(it -> it.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    @Value("${astrocast.secretKey}")
+    private String apiKeyAstrocast;
 
-        return http.build();
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                            JwtAuthenticationFilter filter) throws Exception {
+
+        return http
+                .cors(c -> c.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/positions/**").authenticated()
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean

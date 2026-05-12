@@ -1,6 +1,7 @@
 package com.astridback.api.auth;
 
 import com.astridback.api.IntegrationTests;
+import com.astridback.api.domain.valueobject.Role;
 import com.astridback.api.domain.viewmodel.LoggedInUserViewModel;
 import com.astridback.api.presentation.dto.LoginDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +17,7 @@ public class LoginE2ETests extends IntegrationTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        createFakeUser("1");
+        createFakeUser("1", Role.VISITOR);
     }
 
     @Nested

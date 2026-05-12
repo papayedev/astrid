@@ -4,8 +4,11 @@ import com.astridback.api.domain.model.User;
 import com.astridback.api.infrastructure.persistence.entity.UserEntity;
 
 public class UserMapper {
+
     public static User toDomain(UserEntity entity) {
-        return User.fromPersistence(
+        if (entity == null) return null;
+
+        var user = User.fromPersistence(
                 entity.getId(),
                 entity.getEmailAddress(),
                 entity.getPasswordHash(),
@@ -13,25 +16,31 @@ public class UserMapper {
                 entity.getVerificationCodeExpirationDate(),
                 entity.isActive(),
                 entity.getRole(),
-                entity.getSerialPin() != null
-                        ? DeviceMapper.toDomain(entity.getSerialPin())
-                        : null
+                null
         );
+
+        if (entity.getDevice() != null) {
+            var device = DeviceMapper.toDomain(entity.getDevice());
+            user.linkDevice(device);
+        }
+
+        return user;
     }
+
     public static UserEntity toEntity(User user) {
         var entity = new UserEntity();
         entity.setId(user.getId());
-        entity.setVerificationCodeExpirationDate(user.getVerificationCodeExpirationDate());
-        entity.setVerificationCode(user.getVerificationCode());
-        entity.setActive(user.isActive());
         entity.setEmailAddress(user.getEmailAddress());
         entity.setPasswordHash(user.getPassword());
+        entity.setVerificationCode(user.getVerificationCode());
+        entity.setVerificationCodeExpirationDate(user.getVerificationCodeExpirationDate());
+        entity.setActive(user.isActive());
         entity.setRole(user.getRole());
 
         if (user.getDevice() != null) {
-            var serialPinEntity = DeviceMapper.toEntity(user.getDevice());
-            serialPinEntity.setUser(entity);
-            entity.setSerialPin(serialPinEntity);
+            var deviceEntity = DeviceMapper.toEntity(user.getDevice());
+            deviceEntity.setUser(entity);
+            entity.setDevice(deviceEntity);
         }
 
         return entity;

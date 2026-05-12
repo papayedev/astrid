@@ -1,6 +1,7 @@
 package com.astridback.api.auth;
 
 import com.astridback.api.IntegrationTests;
+import com.astridback.api.domain.valueobject.Role;
 import com.astridback.api.presentation.dto.UpdatePasswordDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -14,7 +15,7 @@ public class UpdatePasswordE2ETests extends IntegrationTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        var user = createFakeUser("1");
+        var user = createFakeUser("1", Role.VISITOR);
         verificationCode = user.getVerificationCode();
     }
 

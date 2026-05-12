@@ -29,8 +29,13 @@ public class UserEntity extends BaseEntity {
     @Column(name = "active", nullable = false)
     private boolean active;
 
-    @OneToOne(mappedBy = "user")
-    private DeviceEntity serialPin;
+    @OneToOne(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
+    private DeviceEntity device;
 
     public UserEntity() {
     }
@@ -44,12 +49,12 @@ public class UserEntity extends BaseEntity {
         this.verificationCode = null;
     }
 
-    public DeviceEntity getSerialPin() {
-        return serialPin;
+    public DeviceEntity getDevice() {
+        return device;
     }
 
-    public void setSerialPin(DeviceEntity serialPin) {
-        this.serialPin = serialPin;
+    public void setDevice(DeviceEntity device) {
+        this.device = device;
     }
 
     public boolean isActive() {

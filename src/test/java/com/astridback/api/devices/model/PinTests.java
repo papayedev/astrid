@@ -1,4 +1,4 @@
-package com.astridback.api.devices;
+package com.astridback.api.devices.model;
 
 import com.astridback.api.UnitTests;
 import com.astridback.api.domain.valueobject.Pin;

@@ -6,6 +6,7 @@ import com.astridback.api.application.usecases.auth.ActivateAccountCommandHandle
 import com.astridback.api.domain.exceptions.BadRequestException;
 import com.astridback.api.domain.exceptions.ForbiddenException;
 import com.astridback.api.domain.exceptions.NotFoundException;
+import com.astridback.api.domain.valueobject.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class ActivateAccountTests extends UnitTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        var user = createFakeUser("1");
+        var user = createFakeUser("1", Role.VISITOR);
         code = user.getVerificationCode();
     }
 

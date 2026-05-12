@@ -11,6 +11,7 @@ import { useUserStore } from '@/stores/userStore'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    { path: '/', redirect: '/dashboard' },
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
     { path: '/verification', component: VerificationPage },

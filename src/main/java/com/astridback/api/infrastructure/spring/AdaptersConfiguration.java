@@ -1,8 +1,11 @@
 package com.astridback.api.infrastructure.spring;
 
 import com.astridback.api.application.ports.AuthContext;
+import com.astridback.api.application.ports.DeviceRepository;
 import com.astridback.api.core.application.ports.Mailer;
 import com.astridback.api.application.ports.UserRepository;
+import com.astridback.api.infrastructure.persistence.jpa.SQLDeviceAccessor;
+import com.astridback.api.infrastructure.persistence.jpa.SQLDeviceRepository;
 import com.astridback.api.infrastructure.persistence.jpa.SQLUserAccessor;
 import com.astridback.api.infrastructure.persistence.jpa.SQLUserRepository;
 import com.astridback.api.core.application.services.TemplateService;
@@ -13,11 +16,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 public class AdaptersConfiguration {
-    @Bean
-    public UserRepository userRepository(SQLUserAccessor accessor) {
-        return new SQLUserRepository(accessor);
-    }
-
     @Bean
     public AuthContext getAuthContext() {
         return new SpringAuthContext();

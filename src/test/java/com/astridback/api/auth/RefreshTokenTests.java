@@ -4,6 +4,7 @@ import com.astridback.api.UnitTests;
 import com.astridback.api.application.usecases.auth.RefreshTokenCommand;
 import com.astridback.api.application.usecases.auth.RefreshTokenCommandHandler;
 import com.astridback.api.domain.exceptions.UnauthorizedException;
+import com.astridback.api.domain.valueobject.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ public class RefreshTokenTests extends UnitTests {
     @BeforeEach
     public void setUp() {
         userRepository.clear();
-        createFakeUser("1");
+        createFakeUser("1", Role.VISITOR);
         activateUser();
     }
 

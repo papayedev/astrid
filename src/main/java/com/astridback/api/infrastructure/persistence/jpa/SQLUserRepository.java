@@ -4,9 +4,13 @@ import com.astridback.api.application.ports.UserRepository;
 import com.astridback.api.domain.model.User;
 import com.astridback.api.infrastructure.persistence.entity.UserEntity;
 import com.astridback.api.infrastructure.persistence.mapper.UserMapper;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
+@Transactional
 public class SQLUserRepository implements UserRepository {
 
     private final SQLUserAccessor accessor;

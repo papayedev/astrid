@@ -48,6 +48,10 @@ public class User {
         return user;
     }
 
+    public boolean hasAlreadyDevice() {
+        return device != null;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -85,8 +89,12 @@ public class User {
         return device;
     }
 
-    public void setDevice(Device device) {
+    public void linkDevice(Device device) {
         this.device = device;
+    }
+
+    public void grant() {
+        this.role = Role.ADMIN;
     }
 
     public void resetVerificationCode() {
